@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Question from './Question';
 import questionsData from './questions'; // Import questions
+import { Button } from '@mui/material';
 
 const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -25,13 +26,28 @@ const Quiz = () => {
   return (
     <div>
       {currentQuestion < questions.length ? (
-        <div>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          marginTop: '40vh',
+          borderRadius: '10px',
+        }}>
           <Question
             question={questions[currentQuestion].question}
             answerOptions={questions[currentQuestion].answerOptions}
             onSelectOption={handleOptionSelect}
           />
-          <button onClick={handleSubmit}>Submit Answer</button>
+          {selectedAnswer !== null && (
+            <p style={{
+              marginTop: '20px',
+            }}>
+              Your answer: {questions[currentQuestion].answerOptions[selectedAnswer]}
+            </p>
+          )}
+          <Button style={{
+            marginTop: '20px',
+          }} variant='contained' color='success' onClick={handleSubmit}>Submit Answer</Button>
         </div>
       ) : (
         <div>
